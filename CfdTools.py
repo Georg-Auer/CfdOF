@@ -1035,17 +1035,17 @@ def checkCfdDependencies():
         else:
             try:
                 # Needs to be runnable from OpenFOAM environment
-                gmshversion = runFoamCommand("'" + gmsh_exe + "'" + " -version")[1]
+                gmshversion = runFoamCommand("'" + gmsh_exe + "'" + " -version")[0].splitlines()
             except (OSError, subprocess.CalledProcessError):
                 gmsh_msg = "gmsh could not be run from OpenFOAM environment"
                 message += gmsh_msg + '\n'
                 print(gmsh_msg)
             if len(gmshversion) > 1:
                 # Only the last line contains gmsh version number
-                gmshversion = gmshversion.rstrip().split()
                 gmshversion = gmshversion[-1]
                 versionlist = gmshversion.split(".")
-                if int(versionlist[0]) < 2 or (int(versionlist[0]) == 2 and int(versionlist[1]) < 13):
+                if int(versionlist[0]) < 2 or (int(versionlist[0]) == 2 and int(versionlist[1]) < 13): 
+                # if int(float(versionlist[0])) < 2 or (int(float(versionlist[0])) == 2 and int(float(versionlist[1])) < 13):
                     gmsh_ver_msg = "gmsh version is older than minimum required (2.13)"
                     message += gmsh_ver_msg + '\n'
                     print(gmsh_ver_msg)
