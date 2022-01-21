@@ -1045,10 +1045,11 @@ def checkCfdDependencies():
                 gmshversion = gmshversion[-1]
                 versionlist = gmshversion.split(".")
                 if int(versionlist[0]) < 2 or (int(versionlist[0]) == 2 and int(versionlist[1]) < 13): 
-                # if int(float(versionlist[0])) < 2 or (int(float(versionlist[0])) == 2 and int(float(versionlist[1])) < 13):
                     gmsh_ver_msg = "gmsh version is older than minimum required (2.13)"
                     message += gmsh_ver_msg + '\n'
                     print(gmsh_ver_msg)
+                else:
+                    print(f"gmsh version {gmshversion} was found")
 
         print("Completed CFD dependency check")
         return message
